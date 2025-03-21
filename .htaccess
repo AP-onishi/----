@@ -1,0 +1,14 @@
+#AddType application/x-httpd-php .htm .html
+AddHandler fcgid-script .html
+ErrorDocument 403 /index.html
+ErrorDocument 404 /index.html
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+RewriteRule message/index.html /message/? [R=301,L]
+RewriteRule business/index.html /business/? [R=301,L]
+RewriteRule business/car.html /business/sales.php? [R=301,L]
+RewriteRule business/service.html /service/? [R=301,L]
+RewriteRule corporate/index.html /corporate/? [R=301,L]
+RewriteRule privacy_policy/index.html /privacy_policy/? [R=301,L]
+RewriteRule ^mycar/(.*)$ https://showa21.jp/ [L,R=301]

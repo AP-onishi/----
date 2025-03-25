@@ -4,7 +4,7 @@ ErrorDocument 403 /index.html
 ErrorDocument 404 /index.html
 RewriteEngine on
 RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} !^carlease\.showa21\.jp$ [NC]
+#RewriteCond %{HTTP_HOST} !^carlease\.showa21\.jp$ [NC]
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 RewriteRule message/index.html /message/? [R=301,L]
 RewriteRule business/index.html /business/? [R=301,L]

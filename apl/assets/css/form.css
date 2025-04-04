@@ -1,0 +1,218 @@
+@charset "UTF-8";
+
+/*************
+
+フォームガイド
+
+***************/
+#formGuide {
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+}
+#formGuide li {
+    position: relative;
+    display: inline-block;
+    padding: 1em 0;
+    background: #ccc; /*非アクティブカラー*/
+}
+#formGuide li:after {
+    content: '';
+    width: 36px;
+    height: 36px;
+    border: 0px;
+    border-top: solid 3px #fff;
+    border-right: solid 3px #fff;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+    right: -18px;
+    margin-top: -18px;
+    background: #ccc; /*非アクティブカラー*/
+    z-index: 5;
+}
+#formGuide li.active {
+    background: #000; /*アクティブカラー*/
+    color: #fff;
+}
+#formGuide li.active:after {
+    content: '';
+    width: 36px;
+    height: 36px;
+    border: 0px;
+    border-top: solid 3px #fff;
+    border-right: solid 3px #fff;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+    right: -18px;
+    margin-top: -18px;
+    background: #000; /*アクティブカラー*/
+    z-index: 5;
+}
+#formGuide li:last-child:after {
+    display: none;
+}
+@media screen and (max-width: 767px) {
+    #formGuide li:after {
+        display: none;
+    }
+}
+/*************
+
+フォームベース
+
+***************/
+
+#form {
+    display: block;
+    width: 60%;
+    margin: 0 auto 100px;
+    padding-top: 60px;
+}
+.zippad {
+    padding-top: 15px;
+}
+.formConfList {
+    border-bottom: 1px dotted #000;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+.formConfList label {
+    display: block;
+}
+.formThx {
+    border-bottom: 1px dotted #000;
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+}
+.formThx .title {
+    font-size: 200%;
+    margin-bottom: 20px;
+}
+.formThx .inqdata {
+    border-top: 1px dotted #000;
+    margin-top: 50px;
+    padding-top: 30px;
+}
+.formIntro {
+    width: 810px;
+    margin: 0 auto;
+    max-width: 810px;
+}
+.formTel {
+    overflow: hidden;
+    width: 810px;
+
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 15px;
+    display: table;
+}
+.formTel .left {
+    width: 35%;
+    font-size: 121%;
+    border-right: 1px solid #000;
+    padding-right: 30px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.formTel .left a {
+    font-size: 28px;
+    color: #000;
+    text-decoration: none;
+    padding-left: 40px;
+    font-weight: bold;
+    background: url(../../images/tel.png) no-repeat 0 0;
+}
+.formTel .right {
+    padding-left: 30px;
+
+    display: table-cell;
+    vertical-align: middle;
+}
+.preferred_date {
+    border: 1px solid #cccccc;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 25px;
+}
+.preferred_date .item {
+    display: table-row;
+
+}
+.preferred_date .item .name{
+    display: table-cell;
+    padding: 10px;
+
+}
+.preferred_date .item .field{
+    display: table-cell;
+    padding: 10px;
+}
+.car{
+    background: #eeeeee;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px;
+
+}
+.car .title{
+    background: #294489;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 10px 15px;
+    margin-bottom: 25px;
+
+}
+@media screen and (max-width: 767px) {
+    #form {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .zippad {
+        padding-top: 0;
+    }
+    .formIntro {
+        width: 90%;
+    }
+    .formTel {
+        width: 90%;
+
+    }
+    .formTel .left {
+        display: block;
+        padding: 0;
+        border-right: none;
+        border-bottom: 1px solid #000;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    .formTel .right {
+        display: block;
+        padding: 0;
+        width: 100%;
+
+    }
+    .formNav li{
+        margin: 0 auto;
+        display: block;
+
+    }
+    .formNav li:last-child{
+        margin-right: auto;
+    }
+}
+/*************
+
+フォームB
+オリジナルバージョン
+
+***************/

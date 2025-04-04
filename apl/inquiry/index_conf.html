@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja-JP">
+<head>
+    <title>お問い合わせ｜アップル車検｜アップル車検浜松は安心できる格安車検！</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1" />
+    <link rel="start" href="/" title="" />
+
+    <?php include_once('../templates/common/meta.html'); ?>
+
+    <link rel="stylesheet" href="../assets/css/import.css" media="all" />
+    <link rel="stylesheet" href="../assets/css/form.css" media="all"/>
+
+    <?php include_once('../templates/common/init.html'); ?>
+
+</head>
+<body>
+<?php include_once('../templates/common/header.html'); ?>
+<div class="builder">
+    <h2 id="underMain" class="mb30 bg-black"><img src="images/inquiry_hico.png">お問い合わせ</h2>
+
+    <ol id="formGuide" class="row">
+		<li class="col-md-4 col-xs-12" >フォームへの入力</li>
+		<li class="col-md-4 col-xs-12 active">入力内容の確認</li>
+		<li class="col-md-4 col-xs-12">お問い合わせの完了</li>
+	</ol>
+	
+	
+	<div id="form">
+        <form action="index.html" method="post" name="inqform">
+            <div class="formConfList">
+                <label><strong>お問い合わせ先</strong><span class="tag tag-danger ml10">必須</span></label>
+                <?php if (!empty($shop[$clean['shop']])) { ?><?php echo $shop[$clean['shop']]; ?><?php } ?>
+            </div>
+			<div class="formConfList">
+                <label><strong>お名前</strong><span class="tag tag-danger ml10">必須</span></label>
+                <?php echo $clean['your_name']; ?>
+            </div>
+            <div class="formConfList">
+                <label><strong>ふりがな</strong></label>
+                <?php echo $clean['furigana']; ?>
+            </div>
+            <div class="formConfList">
+                <label><strong>住所</strong><span class="tag tag-danger ml10">必須</span></label>
+                〒&nbsp;<?php echo $clean['postal_code']; ?>
+                <?php echo $clean['pref']; ?><br>
+                <?php echo $clean['address']; ?>
+            </div>
+            <div class="formConfList">
+                <label><strong>電話番号</strong></label>
+                <?php echo $clean['tel']; ?>
+            </div>
+            <div class="formConfList">
+                <label><strong>メールアドレス</strong><span class="tag tag-danger ml10">必須</span></label>
+                <?php echo $clean['email']; ?>
+            </div>
+
+            <div class="formConfList">
+                <label><strong>お問い合わせ内容</strong><span class="tag tag-danger ml10">必須</span></label>
+                <?php echo nl2br($clean['contact']); ?>
+            </div>
+
+            <div class="txtcenter pt30">
+                <input type="submit" name="btn_back" value="前の画面へ" class="btn btn-default">
+                <input type="submit" name="btn_submit" value="送信する" class="btn btn-primary">
+                <input type="hidden" name="shop" value="<?php echo $clean['shop']; ?>">
+				<input type="hidden" name="your_name" value="<?php echo $clean['your_name']; ?>">
+                <input type="hidden" name="furigana" value="<?php echo $clean['furigana']; ?>">
+                <input type="hidden" name="postal_code" value="<?php echo $clean['postal_code']; ?>">
+                <input type="hidden" name="pref" value="<?php echo $clean['pref']; ?>">
+                <input type="hidden" name="address" value="<?php echo $clean['address']; ?>">
+                <input type="hidden" name="tel" value="<?php echo $clean['tel']; ?>">
+                <input type="hidden" name="email" value="<?php echo $clean['email']; ?>">
+                <input type="hidden" name="contact" value="<?php echo $clean['contact']; ?>">
+                <input type="hidden" name="agreement" value="<?php echo $clean['agreement']; ?>">
+            </div>
+        </form>
+	</div>
+
+
+    <?php include_once('../templates/common/footersub.html'); ?>
+</div>
+<?php include_once('../templates/common/footer.html'); ?>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<?php
+// techacademyマガジンのRSSフィードからRSSを取得します
+$feed = file_get_contents('http://applehamamatu.hamazo.tv/index.rdf');
+
+// XML解析を行う上で、XMLで不正文字と扱われる対象を空文字に変換します
+$invalid_characters = '/[^\x9\xa\x20-\xD7FF\xE000-\xFFFD]/';
+$feed = preg_replace($invalid_characters, '', $feed);
+
+// 文字列をXMLとして解析して、SimpleXMLElementクラスのインスタンスに変換
+$rss = simplexml_load_string($feed);
+
+/* ---------- 初期設定 ----------- */
+// はまぞうのアカウント
+$rssblog = "applehamamatu";
+
+// 初期URL
+$hp_url = "showa21.jp";
+
+// 取得したいRSSのurl
+$blog_rss_url = "http://$rssblog.hamazo.tv/index.rdf";
+
+// 取得表示したい件数
+$post_count = 10;
+
+// 記事タイトル表示文字数（バイト数ではありません）
+$title_length = 50;
+
+// 記事表示文字数（バイト数ではありません）
+$description_length = 50;
+
+// キャッシュを使用するかどうか
+$cache_flg = true; // trueは使用する falseは使用しない（常にHTTPリクエスト発行する）
+// キャッシュを使用する（HTTPリクエストを行わない）秒数
+$cache_sec = 3600; // 3600秒 ＝ 30分
+// キャシュを保存するディレクトリ
+// 指定するディレクトリは パーミッションを　707 か 777 に設定してください
+$cache_dir = "/home/showa21/$hp_url/public_html/_mycar/blogfeed/cache";
+
+
+// magpierss のモジュールを読込み
+require_once("/home/showa21/$hp_url/public_html/_mycar//blogfeed/magpierss/rss_fetch.inc");
+
+// キャッシュ期間を指定する この指定数値（単位は秒）だけキャッシュを利用
+// その間はHTTPリクエストを行いません。
+define("MAGPIE_CACHE_ON", $cache_flg);
+define("MAGPIE_CACHE_AGE", $cache_sec);
+
+// キャッシュを保存するディレクトリを指定
+define("MAGPIE_CACHE_DIR", $cache_dir);
+
+// エンコードを UTF-8 に指定
+define("MAGPIE_OUTPUT_ENCODING", "UTF-8");
+
+// RSSを取得する
+$rss = fetch_rss($blog_rss_url);
+
+$cnt = 0;
+
+
+
+?>
+
+<div id="barBox" class="scrollstop active">
+	<div class="item bnr">
+		<a href="tel:0534751158" onClick="ga('send', 'event', 'tel_助信店','フッター追尾バナー','');"><img src="/apl/images/20241125/barBox_btn_tel_sukenobu.png" alt="助信店053-475-1158" class="pc"><img src="/apl/images/20241125/barBox_btn_tel_sukenobu_sp.png" alt="助信店053-475-1158" class="smh"></a>
+	</div>
+	<div class="item bnr">
+		<a href="tel:0120281144" onClick="ga('send', 'event', 'tel','フッター追尾バナー','');"><img src="/apl/images/20241125/barBox_btn_tel.png" alt="北島店0120-28-1144" class="pc"><img src="/apl/images/20241125/barBox_btn_tel_sp.png" alt="北島店0120-28-1144" class="smh"></a>
+	</div>
+	<div class="item bnr">
+		<a href="https://nyuko-yoyaku.com/bc6dc48b743dc5d013b1abaebd2faed2/?wid=4807" onclick="ga('send', 'event', '予約フォーム','フッター追尾バナー','');"><img src="/apl/images/20241125/barBox_btn_yoyaku.png" alt="Web予約はこちら" class="pc"><img src="/apl/images/20241125/barBox_btn_yoyaku_sp.png" alt="Web予約はこちら" class="smh"></a>
+	</div>
+    <div class="item bnr">
+		<a href="https://nyuko-yoyaku.com/bc6dc48b743dc5d013b1abaebd2faed2/?wid=4809" onClick="ga('send', 'event', '見積予約フォーム','フッター追尾バナー','');"><img src="/apl/images/20241125/barBox_btn_mitumori.png" alt="約１分で見積予約！" class="pc"><img src="/apl/images/20241125/barBox_btn_mitumori_sp.png" alt="約１分で見積予約！" class="smh"></a>
+	</div>
+</div>
+<footer>
+    <div class="builder">
+        <div class="pagetop"><a href="#top"><span class="fa fa-chevron-circle-right red"></span>&nbsp;トップへ戻る</a></div>
+    </div>
+    
+    <div id="footerLine">
+        <div class="builder clearfix">
+			<div class="layout__right">
+				<div class="block_app">
+					<p><img src="/apl/images/20240229/f_apl_ttl.png" alt="アップル車検公式アプリ"></p>
+					<div class="block_app__item">
+						<a href="https://apps.apple.com/jp/app/%E3%82%A2%E3%83%83%E3%83%97%E3%83%AB%E8%BB%8A%E6%A4%9C%E5%85%AC%E5%BC%8F%E3%82%A2%E3%83%97%E3%83%AA/id1438695883" target="_blank" onClick="ga('send', 'event', 'appMac','フッター','');"><img src="/apl/images/20240229/f_apl_mac.png" alt="Mac"></a>
+						<a href="https://play.google.com/store/apps/details?id=jp.digitallab.appleshaken&hl=ja&gl=US&pli=1" target="_blank" onClick="ga('send', 'event', 'appG','フッター','');"><img src="/apl/images/20240229/f_apl_google.png" alt="Google"></a>
+					</div>
+				</div>
+                <div class="bnr insta mb20"><a href="https://www.instagram.com/applesyakenhamamatsu/" target="_blank"><img src="/apl/images/20241125/banner_Instagram.png" alt="インスタグラム" width="100%"></a></div>
+                <div class="bnr blog mb20"><a href="https://applehamamatu.hamazo.tv" target="_blank"><i><img src="/apl/images/20241125/ico_blog.svg" alt="" width="30"></i> 過去のブログ</a></div>
+				<!--<div id="hamazo">
+					<div class="title">
+						<a href="https://applehamamatu.hamazo.tv" target="_blank">
+							<img src="/mycar/images/hamazo.png" alt="">
+						</a>
+					</div>
+					<ul>
+
+						<?php
+						if(!empty($rss)){
+						foreach ($rss->items as $item) {
+
+							// リンクアドレス
+							$url = mb_convert_encoding($item['link'], "UTF-8", "auto");
+
+							// タイトル
+							$title = mb_substr(mb_convert_encoding($item['title'], "UTF-8", "auto"), 0, $title_length);
+
+							// 記事内容
+							$description = mb_substr(strip_tags(mb_convert_encoding($item['description'], "UTF-8", "auto")), 0, $description_length);
+
+							// 日付
+							$date = date('Y年n月d日', strtotime(substr($item['dc']['date'], 0, 10)));
+							// rss1.0の場合　$date = date("Y年n月d日", intval($item['date_timestamp']));
+
+							// PR除く
+							if (preg_match("/^PR:.+$/", $title) != 0)
+								continue;
+
+							// 画像取得（画像が無い場合は代替画像を表示）
+							$encoded = $item['content']['encoded'];
+							if (preg_match("/src=\"(.*?)\"/i", $encoded, $matches)) {
+								$img = "<img $matches[0] width='100' style='margin-left:-0px;' />";
+							} else {
+								$img = "<img src='/images/noimg.jpg' width='100' />";
+							}
+							?>
+							<li><a href="<?php echo $url; ?>" class="clearfix" target="_blank">
+									<span class="img"><?php echo $img; ?></span>
+
+
+									<span class="txt">
+										<span class="date"><?php echo $date; ?></span>
+					<span class="btitle"><?php echo $title; ?></span>
+										<!--                <span class="pc">--><?php //echo $description; ?><!--</span>-->
+					<!--</span>
+								</a></li>
+							<?php
+
+
+							// 設定件数取得したら終了
+							if ($cnt == $post_count - 1) {
+								break;
+							}
+							$cnt++;
+						}
+						}
+						?>
+					</ul>
+
+				</div>-->
+            </div>
+			
+            <div id="footerDesc">
+                <img src="/apl/images/logo.png" alt="アップル車検浜松">
+				<div class="shop_info">
+					<div class="shop_info__item">
+						<label>北島店</label>
+						<a href="tel:0120281144" class="telLink" onClick="ga('send', 'event', 'tel','フッター',''); yahoo_report_conversion('tel:0120-28-1144')">0120-28-1144</a>
+						<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<th scope="row">営業時間</th>
+								<td>平日・土・祝　9：00-18：00（17：00以降は受付のみ）</td>
+							</tr>
+							<tr>
+								<th scope="row">定休日</th>
+								<td>日曜日 / 年末年始・ＧＷ・お盆</td>
+							</tr>
+						</table>
+					</div>
+					<div class="shop_info__item">
+						<label>助信店</label>
+						<a href="tel:0120281144" class="telLink" onClick="ga('send', 'event', 'tel_助信','フッター',''); yahoo_report_conversion('tel:053-475-1158')">053-475-1158</a>
+						<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<th scope="row" rowspan="2">営業時間</th>
+								<td>平日　　9：30-19：00<!--（19：00以降は受付のみ）--></td>
+							</tr>
+							<tr>
+								<td>土・日・祝　9：30-18：00<!--（17：00以降は受付のみ）--></td>
+							</tr>
+							<tr>
+								<th scope="row">定休日</th>
+								<td>火曜日 / 年末年始・ＧＷ・お盆</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				
+                
+                <a href="/apl/inquiry/" onClick="ga('send', 'event', '予約','フッター','');"><img src="/apl/images/footer_inqbtn.png" alt="予約はこちら"></a>
+                <ul>
+                    <li><a href="/apl/price/"><span class="fa fa-caret-right red"></span>特典・料金</a></li>
+                    <li><a href="/apl/sitemap/"><span class="fa fa-caret-right red"></span>サイトマップ</a></li>
+                    <li><a href="/apl/flow/"><span class="fa fa-caret-right red"></span>車検の流れ</a></li>
+                    <li><a href="/apl/policy/"><span class="fa fa-caret-right red"></span>プライバシーポリシー</a></li>
+                    <li><a href="/apl/staff/"><span class="fa fa-caret-right red"></span>店舗・スタッフ紹介</a></li>
+                    <li>
+                        <a href="/apl/inquiry/" onClick="ga('send', 'event', 'お問い合わせ','フッター','');"><span class="fa fa-caret-right red"></span>お問い合わせ</a>
+                    </li>
+                    <li>
+                        <a href="/apl/inspection/" onClick="ga('send', 'event', '予約','フッター','');"><span class="fa fa-caret-right red"></span>ご予約</a>
+                    </li>
+                    <li><a href="/apl/qa/"><span class="fa fa-caret-right red"></span>Q&amp;A</a></li>
+                    <li><a href="/apl/link/"><span class="fa fa-caret-right red"></span>リンク</a></li>
+                </ul>
+            </div>
+        
+        
+        </div>
+    </div>
+    <address>copyright ©2016 アップル車検 浜松店. ALL Rights Reserved.</address>
+</footer>
+<div id="topback"><span class="fa fa-chevron-circle-up fa-fw"></span></div>
+
+
+<!-- 予約ボタン　ギミック -->
+<script>
+    var timeoutId
+    var single = document.getElementById('barBox');
+
+    window.addEventListener("scroll", function(){
+        single.classList.remove("active");
+
+        clearTimeout( timeoutId );
+
+        timeoutId = setTimeout( function() {
+        single.classList.add("active");
+        }, 500);
+    });
+</script>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ja-JP">
+<head>
+    <title>車検予約フォーム｜アップル車検｜アップル車検浜松は安心できる格安車検！</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1"/>
+    <link rel="start" href="/" title=""/>
+
+    <?php include_once('../templates/common/meta.html'); ?>
+
+    <link rel="stylesheet" href="../assets/css/import.css" media="all"/>
+    <link rel="stylesheet" href="../assets/css/form.css" media="all"/>
+    <link rel="stylesheet" href="../assets/js/datetimepicker/jquery.datetimepicker.min.css" media="all"/>
+    <?php include_once('../templates/common/init.html'); ?>
+    <script type="text/javascript" src="../assets/js/datetimepicker/jquery.datetimepicker.full.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://ajaxzip3.github.io/ajaxzip3.js" charset="utf-8"></script>
+    <script>
+        $(function () {
+            $(".datetimepicker").datetimepicker();
+        });
+    </script>
+</head>
+<body>
+<?php include_once('../templates/common/header.html'); ?>
+<div class="builder">
+    <h2 id="underMain" class="mb30 "><img src="images/inspection_hico.png">車検予約フォーム</h2>
+
+    <p class="formIntro mb30">
+        以下のフォームから24時間いつでもご予約いただくことができます。<br/>
+        なお、ご予約希望日時はできるだけ複数ご入力下さい。 ご入力いただいたお客様のご希望日時、内容を確認後、<span class="red font-weight-bold">当社から折り返しご連絡させていただいた後に予約完了となります</span>ので、ご注意ください。<br/>
+        ※定休日にお問い合わせいただいた場合は翌営業日以降の対応となります。 </p>
+
+    <div class="formTel mb50">
+        <div class="left">
+            <a href="tel:0120281144" onclick="ga('send', 'event', 'tel','ヘッダー','');">0120-28-1144</a><br/>携帯電話OK・通話無料!!
+        </div>
+        <div class="right">
+            お急ぎのお客様はお手数ですが左記の電話番号までご連絡ください。<br/>
+            （通話料無料、受付時間：9:00～18:00、土曜・祝日OK、定休日：第一・第三日曜日）
+        </div>
+    </div>
+    <ol id="formGuide" class="row">
+        <li class="col-md-4 col-xs-12 active">フォームへの入力</li>
+        <li class="col-md-4 col-xs-12">入力内容の確認</li>
+        <li class="col-md-4 col-xs-12">お問い合わせの完了</li>
+    </ol>
+    <div id="form">
+        <form action="" method="post" name="inqform">
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php foreach ($error as $value): ?>
+                        ・<?php echo $value; ?><br/>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+            <div class="form-group mb40">
+                <label>お名前<span class="tag tag-danger ml10">必須</span></label>
+                <input type="text" name="your_name" class="form-control" value="<?php if (!empty($clean['your_name'])) { ?><?php echo $clean['your_name']; ?><?php } ?>"/>
+            </div>
+            <div class="form-group mb40">
+                <label>ふりがな</label>
+                <input type="text" name="furigana" class="form-control" value="<?php if (!empty($clean['furigana'])) { ?><?php echo $clean['furigana']; ?><?php } ?>"/>
+            </div>
+            <div class="form-inline">
+                <label>住所<span class="tag tag-danger ml10">必須</span></label><br>
+
+                <div class="form-group">
+                    〒&nbsp;<input type="text" name="postal_code" class="form-control" onKeyUp="AjaxZip3.zip2addr('postal_code','','pref','address');" value="<?php if (!empty($clean['postal_code'])) { ?><?php echo $clean['postal_code']; ?><?php } ?>">
+                </div>
+                <div class="form-group">
+                    <select name="pref" class="custom-select">
+                        <?php foreach ($pref as $val) { ?>
+                            <option value="<?php echo $val; ?>" <?php if (!empty($clean['pref']) && $clean['pref'] === $val) { ?><?php echo 'selected'; ?><?php } ?>><?php echo $val; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group mb40 zippad">
+                <input type="text" name="address" class="form-control" value="<?php if (!empty($clean['address'])) { ?><?php echo $clean['address']; ?><?php } ?>"/>
+            </div>
+            <div class="form-group mb40">
+                <label>電話番号<span class="tag tag-danger ml10">必須</span></label>
+                <input type="text" name="tel" class="form-control" value="<?php if (!empty($clean['tel'])) { ?><?php echo $clean['tel']; ?><?php } ?>"/>
+            </div>
+            <div class="form-group mb40">
+                <label>メールアドレス<span class="tag tag-danger ml10">必須</span></label>
+                <input type="text" name="email" class="form-control" value="<?php if (!empty($clean['email'])) { ?><?php echo $clean['email']; ?><?php } ?>"/>
+            </div>
+            <div class="form-inline mb40">
+                <label>ご連絡可能な時間帯<span class="tag tag-danger ml10">必須</span></label><br>
+
+                <div class="form-group">
+                    <select name="timezone1" class="custom-select">
+                        <?php foreach ($timezone1 as $val) { ?>
+                            <option value="<?php echo $val; ?>" <?php if (!empty($clean['timezone1']) && $clean['timezone1'] === $val) { ?><?php echo 'selected'; ?><?php } ?>><?php echo $val; ?></option>
+                        <?php } ?>
+                    </select>
+                    〜
+                    <select name="timezone2" class="custom-select">
+                        <?php foreach ($timezone2 as $val) { ?>
+                            <option value="<?php echo $val; ?>" <?php if (!empty($clean['timezone2']) && $clean['timezone2'] === $val) { ?><?php echo 'selected'; ?><?php } ?>><?php echo $val; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-inline mb40">
+                <label>ご予約希望日</label><br>
+
+                <div class="preferred_date">
+                    <div class="item">
+                        <div class="name">
+                            第1希望<span class="tag tag-danger ml10">必須</span>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="preferred_date1" class="form-control datetimepicker" value="<?php if (!empty($clean['preferred_date1'])) { ?><?php echo $clean['preferred_date1']; ?><?php } ?>"/>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="name">
+                            第2希望
+                        </div>
+                        <div class="field">
+                            <input type="text" name="preferred_date2" class="form-control datetimepicker" value="<?php if (!empty($clean['preferred_date2'])) { ?><?php echo $clean['preferred_date2']; ?><?php } ?>"/>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="name">
+                            第3希望
+                        </div>
+                        <div class="field">
+                            <input type="text" name="preferred_date3" class="form-control datetimepicker" value="<?php if (!empty($clean['preferred_date3'])) { ?><?php echo $clean['preferred_date3']; ?><?php } ?>"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-inline mb40">
+                <div class="car">
+                    <div class="title">車両情報（おわかりの範囲でご入力ください。）</div>
+                    <div style="padding: 0 25px;">
+                        <div class="form-group mb30 ">
+                            <label>メーカー／車種名</label><br/>
+                            <input type="text" name="car" class="form-control" value="<?php if (!empty($clean['car'])) { ?><?php echo $clean['car']; ?><?php } ?>"/>
+                        </div>
+                        <div class="form-group mb30 ">
+                            <label>走行距離／年式</label><br/>
+                            <input type="text" name="distance" class="form-control" value="<?php if (!empty($clean['distance'])) { ?><?php echo $clean['distance']; ?><?php } ?>"/>&nbsp;km&nbsp;&nbsp;
+                            <input type="text" name="year" class="form-control" value="<?php if (!empty($clean['year'])) { ?><?php echo $clean['year']; ?><?php } ?>"/>&nbsp;年
+                        </div>
+                        <div class="form-group mb30 ">
+                            <label>車検満了日</label><br/>
+                            <input type="text" name="expiration_date" class="form-control datetimepicker" value="<?php if (!empty($clean['expiration_date'])) { ?><?php echo $clean['expiration_date']; ?><?php } ?>"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb40">
+                <label>お問い合わせ内容<span class="tag tag-danger ml10">必須</span></label>
+                <textarea name="contact" class="form-control" rows="6"><?php if (!empty($clean['contact'])) { ?><?php echo $clean['contact']; ?><?php } ?></textarea>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" value="1" name="agreement" <?php if (!empty($clean['agreement']) && $clean['agreement'] === "1") { ?>checked <?php } ?>>
+                    プライバシーポリシーに同意する。<span class="tag tag-danger ml10">必須</span>
+                </label>
+            </div>
+            <div>ご入力いただきました個人情報については、お問合せに対応する回答についてのみ利用いたします。その他個人情報の取り扱いに関する事項は、「<a href="../policy/" target="_blank">個人情報保護ポリシー</a>」をご確認ください。なお、お問い合わせに対する回答については、内容によりメールまたはお電話での対応とさせて頂きます。
+            </div>
+            <div class="txtcenter pt30">
+                <button type="submit" class="btn btn-primary" name="btn_confirm" value="入力内容を確認する">確認画面へ</button>
+            </div>
+        </form>
+    </div>
+    <?php include_once('../templates/common/footersub.html'); ?>
+</div>
+<?php include_once('../templates/common/footer.html'); ?>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<?php
+// 変数の初期化
+$page_flag = 0;
+$clean = array();
+$error = array();
+// 配列
+$pref = array('1'=>'北海道','2'=>'青森県','3'=>'岩手県','4'=>'宮城県','5'=>'秋田県','6'=>'山形県','7'=>'福島県','8'=>'茨城県','9'=>'栃木県','10'=>'群馬県','11'=>'埼玉県','12'=>'千葉県','13'=>'東京都','14'=>'神奈川県','15'=>'新潟県','16'=>'富山県','17'=>'石川県','18'=>'福井県','19'=>'山梨県','20'=>'長野県','21'=>'岐阜県','22'=>'静岡県','23'=>'愛知県','24'=>'三重県','25'=>'滋賀県','26'=>'京都府','27'=>'大阪府','28'=>'兵庫県','29'=>'奈良県','30'=>'和歌山県','31'=>'鳥取県','32'=>'島根県','33'=>'岡山県','34'=>'広島県','35'=>'山口県','36'=>'徳島県','37'=>'香川県','38'=>'愛媛県','39'=>'高知県','40'=>'福岡県','41'=>'佐賀県','42'=>'長崎県','43'=>'熊本県','44'=>'大分県','45'=>'宮崎県','46'=>'鹿児島県','47'=>'沖縄県');
+$timezone1 = $timezone2 = array('0:00','1:00','2:00','3:00','4:00','5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','24:00');
+
+// サニタイズ
+if( !empty($_POST) ) {
+
+    foreach( $_POST as $key => $value ) {
+
+        if (is_array($value)) {
+            $clean[$key] = $value;
+        } else {
+            $clean[$key] = htmlspecialchars( $value, ENT_QUOTES);
+        }
+    }
+}
+// 確認画面
+if( !empty($clean['btn_confirm']) ) {
+
+    // バリデーションチェック
+    $error = validation($clean);
+
+    //エラーがない場合
+    if( empty($error) ) {
+        $page_flag = 1;
+    }
+// 送信処理
+} elseif( !empty($clean['btn_submit']) ) {
+
+    // サンクス画面
+    $page_flag = 2;
+
+    // 変数とタイムゾーンを初期化
+    $header = null;
+    $auto_reply_subject = null;
+    $auto_reply_text = null;
+    $admin_reply_subject = null;
+    $admin_reply_text = null;
+//    date_default_timezone_set('Asia/Tokyo');
+    mb_language("ja");
+    mb_internal_encoding('UTF-8');
+    mb_regex_encoding("UTF-8");
+    ini_set('mbstring.encoding_translation', FALSE);
+
+    // 設定
+    $path_maillog = '/home/showa21-jp/maillog/';
+    $inqmail_from = 'noreply@showa21.jp'; //
+    $inqmail_to = 'hamamatu@apl.com,ootani@showa21.jp,t_nagata@showa21.jp,anma@showa21.jp,tabata@showa21.jp,miyagi@showa21.jp'; // 運営者メールアドレス
+//        $inqmail_to = 'ban@aprise.co.jp'; // 運営者メールアドレス
+
+//    $inqmail_to2 = 'ban@aprise.co.jp'; // WEB管理者メールアドレス
+    $site_name = 'アップル車検浜松';
+    $site_address = '〒435-0041 静岡県浜松市東区北島町262';
+    $site_tel = 'TEL：0120-28-1144';
+
+    $header = "MIME-Version: 1.0\n";
+    $header .= "From: " . mb_encode_mimeheader($site_name) . " <".$inqmail_from.">\n";
+    $header .= "Reply-To: " . mb_encode_mimeheader($site_name) . " <".$inqmail_from.">\n";
+    $mtaparam = '-f' . $inqmail_from;
+
+    // 件名を設定
+    $auto_reply_subject = 'お問い合わせありがとうございます。';
+
+    // 本文を設定
+
+    $auto_reply_text = "この度は、お問い合わせ頂き誠にありがとうございます。\n下記の内容でお問い合わせを受け付けました。\n\n";
+    $auto_reply_text_common .= "お問い合わせ日時：" . date("Y-m-d H:i") . "\n";
+    $auto_reply_text_common .= "お名前：" . $clean['your_name'] . "\n";
+    $auto_reply_text_common .= "ふりがな：" . $clean['furigana'] . "\n";
+    $auto_reply_text_common .= "住所：〒" . $clean['postal_code'] . " " . $clean['pref'] .  " " . $clean['address'] . "\n";
+    $auto_reply_text_common .= "電話番号：" . $clean['tel'] . "\n";
+    $auto_reply_text_common .= "メールアドレス：" . $clean['email'] . "\n";
+    $auto_reply_text_common .= "ご連絡可能な時間帯：" . $clean['timezone1'] . '〜' . $clean['timezone2'] . "\n";
+    $auto_reply_text_common .= "ご予約希望日ー第1希望：" . $clean['preferred_date1'] . "\n";
+    $auto_reply_text_common .= "ご予約希望日ー第2希望：" . $clean['preferred_date2'] . "\n";
+    $auto_reply_text_common .= "ご予約希望日ー第3希望：" . $clean['preferred_date3'] . "\n";
+    $auto_reply_text_common .= "車両情報ーメーカー／車種：" . $clean['car'] . "\n";
+    $auto_reply_text_common .= "車両情報ー走行距離：" . $clean['distance'] . "km\n";
+    $auto_reply_text_common .= "車両情報ー年式：" . $clean['year'] . "年\n";
+    $auto_reply_text_common .= "車両情報ー車検満了日：" . $clean['expiration_date'] . "\n";
+    $auto_reply_text_common .= "お問い合わせ内容：" . $clean['contact'] . "\n\n";
+    $auto_reply_text_common .= "-----------------------------------\n";
+    $auto_reply_text_common .= $site_name ."\n";
+    $auto_reply_text_common .= $site_address ."\n";
+    $auto_reply_text_common .= $site_tel ."\n";
+
+    $auto_reply_text .= $auto_reply_text_common;
+
+
+    // 自動返信メール送信
+    mb_send_mail( $clean['email'], $auto_reply_subject, $auto_reply_text, $header,$mtaparam);
+
+    // 運営側へ送るメールの件名
+    $admin_reply_subject = "お問い合わせを受け付けました";
+
+    // 本文を設定
+    $admin_reply_text = "下記の内容でお問い合わせがありました。\n\n";
+    $admin_reply_text .= $auto_reply_text_common;
+
+    // 運営者へメール送信
+    mb_send_mail( $inqmail_to, $admin_reply_subject, $admin_reply_text, $header,$mtaparam);
+
+    // WEB管理者へメール送信
+//    mb_send_mail( $inqmail_to2, $admin_reply_subject, $admin_reply_text, $header,$mtaparam);
+
+    // メールログ保存
+    $fp = fopen($path_maillog . date('YmdHis') . '.log', 'w');
+    flock($fp, LOCK_EX);
+    $outbuf = 'To:' . $clean['email'] . "\n" . $header . "\n----------------------------------------------------------\n" . mb_convert_encoding($auto_reply_text, 'UTF-8');
+    $outbuf = str_replace("\n", "\r\n", $outbuf);
+    fputs($fp, $outbuf);
+    flock($fp, LOCK_UN);
+    fclose($fp);
+
+}
+// バリデーション
+function validation($data) {
+
+    $error = array();
+
+    // テキストフィールドのバリデーション
+    if( empty($data['your_name']) ) {
+        $error[] = "「お名前」は必ず入力してください。";
+    }
+
+    // テキストフィールドのバリデーション
+    if( empty($data['postal_code']) || empty($data['pref']) || empty($data['address']) ) {
+        $error[] = "「住所」は必ず入力してください。";
+    }
+
+
+    // テキストフィールドのバリデーション
+    if( empty($data['tel']) ) {
+        $error[] = "「電話番号」は必ず入力してください。";
+    }
+    // メールアドレスのバリデーション
+    if( empty($data['email']) ) {
+        $error[] = "「メールアドレス」は必ず入力してください。";
+
+    } elseif( !preg_match( '/^[0-9a-z_.\/?-]+@([0-9a-z-]+\.)+[0-9a-z-]+$/', $data['email']) ) {
+        $error[] = "「メールアドレス」は正しい形式で入力してください。";
+    }
+
+    // テキストフィールドのバリデーション
+    if( empty($data['timezone1']) || empty($data['timezone2'])  ) {
+        $error[] = "「ご連絡可能な時間帯」は必ず入力してください。";
+    }
+    // テキストフィールドのバリデーション
+    if( empty($data['preferred_date1'])) {
+        $error[] = "「ご予約希望日ー第1希望」は必ず入力してください。";
+    }
+    // テキストエリアのバリデーション
+    if( empty($data['contact']) ) {
+        $error[] = "「お問い合わせ内容」は必ず入力してください。";
+    }
+
+    // チェックボックスのバリデーション
+    if( empty($data['agreement']) ) {
+        $error[] = "「プライバシーポリシー」をご確認ください。";
+
+    } elseif( (int)$data['agreement'] !== 1 ) {
+        $error[] = "「プライバシーポリシー」をご確認ください。";
+    }
+
+    return $error;
+}
+if( $page_flag === 1 ){
+    // 確認画面
+    require_once 'index_conf.html';
+
+}elseif( $page_flag === 2 ){
+    // サンクス画面
+    header("Location:index_thx.html");
+}else{
+    // 入力画面、エラー画面
+    require_once 'index_form.html';
+}
+?>

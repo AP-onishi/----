@@ -1,11 +1,7 @@
-<?php
-require '../../bankin/wp/wp-blog-header.php';
-?>
-
 <!doctype html>
 <html lang="ja-JP">
 <head>
-<title>スタッフ紹介｜アップル車検｜アップル車検浜松は安心できる格安車検！</title>
+<title>店舗紹介｜アップル車検｜アップル車検浜松は安心できる格安車検！</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1" />
 <link rel="start" href="/" title="" />
@@ -23,9 +19,9 @@ $(window).load(function() {
 <body>
 <?php include_once('../templates/common/header.html'); ?>
 <div class="builder">
-	<h2 id="underMain" class="mb30"><img src="images/staff_hico.png">店舗スタッフ紹介</h2>
+	<h2 id="underMain" class="mb30"><img src="images/staff_hico.png">店舗紹介</h2>
 	<section id="shop">
-		<h3 class="underTitle mb20"><span>店舗紹介</span></h3>
+		<h3 class="underTitle mb20"><span>店舗情報</span></h3>
 		
 		<div class="main">
 			<img src="images/20230929/staff_corp.jpg?230929" alt="店舗外観">
@@ -146,81 +142,6 @@ $(window).load(function() {
 		</table>
 	</section>
 	
-
-	<section id="staff">
-		<h3 class="underTitle pt80 mb30"><span>スタッフ紹介</span></h3>
-        <?php
-        
-        $args = ['post_type' => 'staff', // 検索したいカスタム投稿タイプ
-            'posts_per_page' => 20,
-        ];
-        
-        $posts = get_posts($args);
-        
-        
-        ?>
-        <?php foreach ($posts as $key2 => $val2) { ?>
-		<dl>
-			<dt><img src="<?php echo wp_get_attachment_url(get_post_meta($val2->ID, '画像', true)); ?>"></dt>
-			<dd>
-				<span class="name"><?php echo $val2->post_title; ?></span>
-				<table border="0" cellspacing="0" cellpadding="0">
-					<tr>
-						<th scope="row">担当業務</th>
-						<td>
-                            <?php echo nl2br(get_post_meta($val2->ID, '担当業務', true)); ?>
-                        </td>
-					</tr>
-					<tr>
-						<th scope="row">保有資格</th>
-						<td>
-                            <?php echo nl2br(get_post_meta($val2->ID, '保有資格', true)); ?>
-                        
-                        </td>
-					</tr>
-					<tr>
-						<th scope="row">趣味・特技</th>
-						<td>
-                            <?php echo nl2br(get_post_meta($val2->ID, '趣味・特技', true)); ?>
-                        
-                        </td>
-					</tr>
-					<tr>
-						<th scope="row">自己紹介</th>
-						<td>
-                            <?php echo nl2br(get_post_meta($val2->ID, '自己紹介', true)); ?>
-                        </td>
-					</tr>
-				</table>
-			</dd>
-		</dl>
-        <?php } ?>
-		<!--<dl>
-			<dt><img src="images/staff_photo10.jpg"></dt>
-			<dd>
-				<span class="name">E.S</span></span>
-				<table border="0" cellspacing="0" cellpadding="0">
-					<tr>
-						<th scope="row">担当業務</th>
-						<td>統括責任者</td>
-					</tr>
-					<tr>
-						<th scope="row">保有資格</th>
-						<td>福祉用具専門相談員</td>
-					</tr>
-					<tr>
-						<th scope="row">趣味・特技</th>
-						<td>浅く広くいろいろな事、子供と遊ぶ </td>
-					</tr>
-					<tr>
-						<th scope="row">自己紹介</th>
-						<td>車好きが高じて今の仕事に。<br>
-						「どうしたらお客様に、楽しく安全なカーライフを満喫していただけるか？」を常に考えるのが仕事です。 家では３人の子育てに奮闘中！</td>
-					</tr>
-				</table>
-			</dd>
-		</dl>-->
-	</section>
 	<?php include_once('../templates/common/footersub.html'); ?>
 </div>
 <?php include_once('../templates/common/footer.html'); ?>

@@ -1,0 +1,116 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,p,blockquote,table,th,td {
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	font-size: 93%;
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;	font-weight: normal;
+	/*
+	  font-family: Arial, Roboto, "Droid Sans", "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+	  font-family: "Times New Roman", "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "メイリオ", Meiryo, serif;
+	*/
+	font-style: normal;
+}
+
+img {
+	border: 0;
+	vertical-align: bottom;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	clear: none;
+	display:inline;
+}
+
+h1,h2,h3,h4,h5,h6,p,pre,blockquote,address,ul,dl,ol,th,em {
+	font-size: 100%;
+	font-weight: normal;
+	font-style: normal;
+}
+
+ul,dl,ol {
+	list-style-type: none;
+	list-style-position: outside;
+	text-indent: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 100%;
+}
+
+th,td {
+	text-align: left;
+	vertical-align: top;
+}
+
+input,select,textarea {
+	font-size: 100%;
+	font-family: "ＭＳＰゴシック","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3", sans-serif;
+}
+
+pre,code,kbd,samp,tt {
+	font-family: monospace;
+}
+
+.clear {
+	clear: both;
+	height: 0;
+	line-height:0;
+	overflow: hidden;
+}
+
+.font10 { font-size: 77%; }
+.font11 { font-size: 85%; }
+.font12 { font-size: 93%; }
+.font13 { font-size: 100%; }
+.font14 { font-size: 108%; }
+.font15 { font-size: 116%; }
+.font16 { font-size: 123.1%; }
+.font17 { font-size: 131%; }
+.font18 { font-size: 138.5%; }
+.font19 { font-size: 146.5%; }
+.font20 { font-size: 153.9%; }
+.font21 { font-size: 161.6%; }
+.font22 { font-size: 167%; }
+.font23 { font-size: 174%; }
+.font24 { font-size: 182%; }
+.font25 { font-size: 189%; }
+.font26 { font-size: 197%; }
+
+
+a{
+	outline:none;
+}
+
+/* ClearFix */
+.clearfix:after {
+	content: "."; 
+	display: block; 
+	height: 0; 
+	clear: both; 
+	visibility: hidden;
+}
+
+.clearfix { display: inline-block; }
+/*\*/
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+/**/
+
+.noscript{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	background:#F00;
+	color:#fff;
+	padding:20px;
+}

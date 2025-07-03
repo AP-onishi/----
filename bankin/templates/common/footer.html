@@ -1,0 +1,82 @@
+
+<div id="barBox" class="scrollstop active">
+	<ul class="item tel">
+		<li class="mds">通話料無料！<br class="sp_h">携帯電話OK!</li>
+		<li><a href="tel:0120281144" class="telNumber">0120-28-1144</a><span class="telComment">営業時間 / 	平日・土・祝　9：00-18：00</span></li>
+	</ul>
+	<div class="item">
+		<a href="https://nyuko-yoyaku.com/bc6dc48b743dc5d013b1abaebd2faed2/?wid=13483" onclick="ga('send', 'event', '修理ご予約','フッター追尾バナー','');"><img src="/bankin/images/20230929/barBox_btn.png" alt="約1分で板金見積り予約!"></a>
+	</div>
+</div>
+<footer>
+    <div class="builder">
+        <div class="pagetop"><a href="#top"><span class="fa fa-chevron-circle-right red"></span>&nbsp;トップへ戻る</a></div>
+    </div>
+
+    <div id="footerLine">
+        <div class="builder clearfix">
+            <div class="layout__right">
+                <div class="bnr insta mb20"><a href="https://www.instagram.com/applesyakenhamamatsu/" target="_blank"><img src="/bankin/images/banner_Instagram.png" alt="インスタグラム" width="100%"></a></div>
+                <div class="bnr blog mb20"><a href="https://applehamamatu.hamazo.tv/" target="_blank"><i><img src="/bankin/images/ico_blog.svg" alt="" width="30"></i> 過去のブログ</a></div>
+                <div class="bnr shaken mb20"><a href="http://showa21.jp/apl/" target="_blank" onClick="ga('send', 'event', 'アップル車検サイト','フッター','');"><img src="/bankin/images/banner_shaken.png" alt="アップル車検" width="100%"></a></div>
+            </div>
+            
+            <div id="footerDesc">
+                <img src="/bankin/images/logo.png" alt="">
+                <a href="tel:0120281144" class="telLink" onClick="ga('send', 'event', 'tel','フッター','');">0120-28-1144</a>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th scope="row">営業時間</th>
+                        <td>平日・土・祝　9：00-18：00
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">定休日</th>
+                        <td>日曜日 / 年末年始・ＧＷ・お盆</td>
+                    </tr>
+                </table>
+                <a href="https://nyuko-yoyaku.com/bc6dc48b743dc5d013b1abaebd2faed2/?wid=13483" onClick="ga('send', 'event', 'お問い合わせ','フッターボタン','');"><img src="/bankin/images/footer_inqbtn.png" alt="予約はこちら"></a>
+                <ul class="mb20 clearfix">
+                    <li><a href="/bankin/case/"><span class="fa fa-caret-right blue"></span>アップル板金</a></li>
+                    <li><a href="/bankin/sitemap/"><span class="fa fa-caret-right blue"></span>サイトマップ</a></li>
+                    <li><a href="/bankin/flow/"><span class="fa fa-caret-right blue"></span>作業の流れ</a></li>
+                    <li><a href="/bankin/policy/"><span class="fa fa-caret-right blue"></span>プライバシーポリシー</a></li>
+                    <li><a href="/bankin/staff/"><span class="fa fa-caret-right blue"></span>店舗・スタッフ紹介</a></li>
+                    <li>
+                        <a href="/bankin/inquiry/" onClick="ga('send', 'event', 'お問い合わせ','フッター','');"><span class="fa fa-caret-right blue"></span>お問い合わせ</a>
+                    </li>
+                    <li>
+                        <a href="/bankin/estimate/" onClick="ga('send', 'event', 'お見積り','フッター','');"><span class="fa fa-caret-right blue"></span>御見積もり</a>
+                    </li>
+                    <li>
+                        <a href="https://nyuko-yoyaku.com/bc6dc48b743dc5d013b1abaebd2faed2/?wid=13483" onClick="ga('send', 'event', '修理ご予約','フッター','');"><span class="fa fa-caret-right blue"></span>修理ご予約</a>
+                    </li>
+                    <li><a href="/bankin/qa/"><span class="fa fa-caret-right blue"></span>Q&amp;A</a></li>
+                    <li><a href="/bankin/link/"><span class="fa fa-caret-right blue"></span>リンク</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    <address>copyright ©2016 アップル板金浜松. ALL Rights Reserved.</address>
+</footer>
+<div id="topback"><span class="fa fa-chevron-circle-up fa-fw"></span></div>
+
+
+
+<!-- 予約ボタン　ギミック -->
+<script>
+    var timeoutId
+    var single = document.getElementById('barBox');
+
+    window.addEventListener("scroll", function(){
+        single.classList.remove("active");
+
+        clearTimeout( timeoutId );
+
+        timeoutId = setTimeout( function() {
+        single.classList.add("active");
+        }, 500);
+    });
+</script>

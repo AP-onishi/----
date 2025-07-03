@@ -1,0 +1,187 @@
+<?php
+/* ---------- 初期設定 ----------- */
+// はまぞうのアカウント
+$rssblog = "applehamamatu";
+
+// 初期URL
+$hp_url = "showa21.jp";
+
+// 取得したいRSSのurl
+$blog_rss_url = "http://$rssblog.hamazo.tv/index.rdf";
+
+// 取得表示したい件数
+$post_count = 10;
+
+// 記事タイトル表示文字数（バイト数ではありません）
+$title_length = 50;
+
+// 記事表示文字数（バイト数ではありません）
+$description_length = 50;
+
+// キャッシュを使用するかどうか
+$cache_flg = true; // trueは使用する falseは使用しない（常にHTTPリクエスト発行する）
+// キャッシュを使用する（HTTPリクエストを行わない）秒数
+$cache_sec = 3600; // 3600秒 ＝ 30分
+// キャシュを保存するディレクトリ
+// 指定するディレクトリは パーミッションを　707 か 777 に設定してください
+$cache_dir = "/home/showa21/$hp_url/public_html/_mycar//blogfeed/cache";
+
+
+// magpierss のモジュールを読込み
+require_once("/home/showa21/$hp_url/public_html/_mycar//blogfeed/magpierss/rss_fetch.inc");
+
+// キャッシュ期間を指定する この指定数値（単位は秒）だけキャッシュを利用
+// その間はHTTPリクエストを行いません。
+define("MAGPIE_CACHE_ON", $cache_flg);
+define("MAGPIE_CACHE_AGE", $cache_sec);
+
+// キャッシュを保存するディレクトリを指定
+define("MAGPIE_CACHE_DIR", $cache_dir);
+
+// エンコードを UTF-8 に指定
+define("MAGPIE_OUTPUT_ENCODING", "UTF-8");
+
+// RSSを取得する
+$rss = fetch_rss($blog_rss_url);
+
+$cnt = 0;
+
+?>
+
+<div id="barBox" class="scrollstop active">
+	<ul class="item tel">
+		<li class="mds">通話料無料！<br class="sp_h">携帯電話OK!</li>
+		<li><a href="tel:0120281144" class="telNumber">0120-28-1144</a><span class="telComment">営業時間 / 	平日・土・祝　9：00-18：00</span></li>
+	</ul>
+	<div class="item">
+		<a href="https://nyuko-yoyaku.com/bc6dc48b743dc5d013b1abaebd2faed2/?wid=13483" onclick="ga('send', 'event', '修理ご予約','フッター追尾バナー','');"><img src="/bankin/images/20230929/barBox_btn.png" alt="約1分で板金見積り予約!"></a>
+	</div>
+</div>
+<footer>
+    <div class="builder">
+        <div class="pagetop"><a href="#top"><span class="fa fa-chevron-circle-right red"></span>&nbsp;トップへ戻る</a></div>
+    </div>
+
+    <div id="footerLine">
+        <div class="builder clearfix">
+            <div id="hamazo">
+                <div class="title">
+                    <a href="https://applehamamatu.hamazo.tv" target="_blank">
+                        <!--<img src="/mycar/images/hamazo.png" alt="">-->
+                        アップル日記（スタッフの独り言）
+                    </a>
+                </div>
+                <ul>
+                    <?php
+                    if(!empty($rss)){
+                    foreach ($rss->items as $item) {
+
+                        // リンクアドレス
+                        $url = mb_convert_encoding($item['link'], "UTF-8", "auto");
+
+                        // タイトル
+                        $title = mb_substr(mb_convert_encoding($item['title'], "UTF-8", "auto"), 0, $title_length);
+
+                        // 記事内容
+                        $description = mb_substr(strip_tags(mb_convert_encoding($item['description'], "UTF-8", "auto")), 0, $description_length);
+
+                        // 日付
+                        $date = date('Y年n月d日', strtotime(substr($item['dc']['date'], 0, 10)));
+                        // rss1.0の場合　$date = date("Y年n月d日", intval($item['date_timestamp']));
+
+                        // PR除く
+                        if (preg_match("/^PR:.+$/", $title) != 0)
+                            continue;
+
+                        // 画像取得（画像が無い場合は代替画像を表示）
+                        $encoded = $item['content']['encoded'];
+                        if (preg_match("/src=\"(.*?)\"/i", $encoded, $matches)) {
+                            $img = "<img $matches[0] width='100' style='margin-left:-0px;' />";
+                        } else {
+                            $img = "<img src='/images/noimg.jpg' width='100' />";
+                        }
+                        ?>
+                        <li><a href="<?php echo $url; ?>" class="clearfix" target="_blank">
+                                <span class="img"><?php echo $img; ?></span>
+
+
+                                <span class="txt">
+                                    <span class="date"><?php echo $date; ?></span>
+            	<span class="btitle"><?php echo $title; ?></span>
+                                    <!--                <span class="pc">--><?php //echo $description; ?><!--</span>-->
+                </span>
+                            </a></li>
+                        <?php
+
+
+                        // 設定件数取得したら終了
+                        if ($cnt == $post_count - 1) {
+                            break;
+                        }
+                        $cnt++;
+                    }
+                    }
+                    ?>
+                </ul>
+
+            </div>
+            <div id="footerDesc">
+                <img src="/bankin/images/logo.png">
+                <a href="tel:0120281144" class="telLink" onClick="ga('send', 'event', 'tel','フッター','');">0120-28-1144</a>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th scope="row">営業時間</th>
+                        <td>平日・土・祝　9：00-18：00
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">定休日</th>
+                        <td>日曜日 / 年末年始・ＧＷ・お盆</td>
+                    </tr>
+                </table>
+                <a href="https://nyuko-yoyaku.com/bc6dc48b743dc5d013b1abaebd2faed2/?wid=13483" onClick="ga('send', 'event', 'お問い合わせ','フッターボタン','');"><img src="/bankin/images/footer_inqbtn.png" alt="予約はこちら"></a>
+                <ul class="mb20 clearfix">
+                    <li><a href="/bankin/case/"><span class="fa fa-caret-right blue"></span>アップル板金</a></li>
+                    <li><a href="/bankin/sitemap/"><span class="fa fa-caret-right blue"></span>サイトマップ</a></li>
+                    <li><a href="/bankin/flow/"><span class="fa fa-caret-right blue"></span>作業の流れ</a></li>
+                    <li><a href="/bankin/policy/"><span class="fa fa-caret-right blue"></span>プライバシーポリシー</a></li>
+                    <li><a href="/bankin/staff/"><span class="fa fa-caret-right blue"></span>店舗・スタッフ紹介</a></li>
+                    <li>
+                        <a href="/bankin/inquiry/" onClick="ga('send', 'event', 'お問い合わせ','フッター','');"><span class="fa fa-caret-right blue"></span>お問い合わせ</a>
+                    </li>
+                    <li>
+                        <a href="/bankin/estimate/" onClick="ga('send', 'event', 'お見積り','フッター','');"><span class="fa fa-caret-right blue"></span>御見積もり</a>
+                    </li>
+                    <li>
+                        <a href="https://nyuko-yoyaku.com/bc6dc48b743dc5d013b1abaebd2faed2/?wid=13483" onClick="ga('send', 'event', '修理ご予約','フッター','');"><span class="fa fa-caret-right blue"></span>修理ご予約</a>
+                    </li>
+                    <li><a href="/bankin/qa/"><span class="fa fa-caret-right blue"></span>Q&amp;A</a></li>
+                    <li><a href="/bankin/link/"><span class="fa fa-caret-right blue"></span>リンク</a></li>
+                </ul>
+                <a href="http://showa21.jp/apl/" target="_blank" class="linkBtnA bgRed" onClick="ga('send', 'event', 'アップル車検サイト','フッター','');">車検のご相談はこちら</a>
+            </div>
+        </div>
+
+
+    </div>
+    <address>copyright ©2016 アップル板金浜松. ALL Rights Reserved.</address>
+</footer>
+<div id="topback"><span class="fa fa-chevron-circle-up fa-fw"></span></div>
+
+
+
+<!-- 予約ボタン　ギミック -->
+<script>
+    var timeoutId
+    var single = document.getElementById('barBox');
+
+    window.addEventListener("scroll", function(){
+        single.classList.remove("active");
+
+        clearTimeout( timeoutId );
+
+        timeoutId = setTimeout( function() {
+        single.classList.add("active");
+        }, 500);
+    });
+</script>

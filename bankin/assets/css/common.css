@@ -186,14 +186,13 @@ CommandCss
 .pl90{ padding-left: 90px !important; }
 .pl100{ padding-left: 100px !important; }
 .clearb{clear: both;}
-.bnone{ border: none;!important}
+.bnone{ border: none!important;}
 .txtright{text-align: right; width: 100%;}
 .txtleft{text-align: left; width: 100%;}
 .txtcenter{text-align: center; width: 100%;}
 .float_r{float: right; display: inline;}
 .float_l{float: left; display: inline;}
 .vtop{ vertical-align: top;}
-.imgover{}
 #topback{
     bottom: 20px;
     right: 20px;
@@ -519,12 +518,18 @@ address{
 #footerDesc ul li a:hover{
     text-decoration: underline;
 }
+#footerDesc .memo{
+    font-weight: bold;
+}
 #facebook{
     width: 440px;
     float: right;
     border: 10px solid #305095;
 }
 @media screen and (max-width: 767px){
+    #footerLine{
+        padding-bottom: 60px;
+    }
     #facebook{
         width: 94%;
         margin: 0 3%;
@@ -535,8 +540,25 @@ address{
     #facebook iframe{
         width: 100%;
     }
-    #footerDesc{
+    #footerDesc {
+        width: 94%;
+        float: none;
+        margin: 40px auto 0;
+    }
+    #footerDesc .footer-logo{
         display: none;
+    }
+    #footerDesc table{
+        font-size: 12px;
+    }
+    #footerDesc .memo{
+        font-size: 12px;
+    }
+    #footerDesc ul li{
+        margin-bottom: 15px;
+    }
+    #footerDesc ul li a{
+        font-size: 100%;
     }
 
 }
@@ -881,6 +903,18 @@ topCss
 トップページで利用するCSS
  
 *******************************/
+.top-main .slider {
+    margin-bottom: 20px;
+}
+.top-main .top-language{
+    font-weight: bold;
+    font-size: 150%;
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 10px;
+    color: #2c438b;
+    border: solid 1px;
+}
 .actionArea{
     clear: both;
 }
@@ -922,9 +956,6 @@ topCss
     background-color: #fff;
     color: #3d3d3d;
     font-weight: bold;
-}
-#reason ul li:nth-child(even) a{
-    /*background: #333;*/
 }
 #reason ul li a:hover{
     opacity: 0.7;
@@ -1036,6 +1067,14 @@ topCss
     margin-bottom: 20px;
 }
 @media screen and (max-width: 767px){
+    .top-main .slider {
+        margin-bottom: 3%;
+    }
+    .top-main .top-language{
+        font-size: 120%;
+        margin: 0 auto 30px;
+        width: 94%;
+    }
     .actionArea a{
         display: block;
         width: 94%;
@@ -2399,7 +2438,6 @@ policyCss
 #footerSub .inner{
 	padding: 0 30px;
 	display:-webkit-box;
-  	display:-ms-flexbox;
     display: flex;
 	-ms-flex-wrap: wrap;
   	flex-wrap: wrap;
@@ -2476,7 +2514,6 @@ policyCss
     color: #fff;
     text-align: left;
 	display:-webkit-box;
-  	display:-ms-flexbox;
     display: flex;
 	-ms-flex-wrap: nowrap;
   	flex-wrap: nowrap;
@@ -2492,7 +2529,6 @@ policyCss
 }
 #barBox .item{
 	display:-webkit-box;
-  	display:-ms-flexbox;
     display: flex;
 	-ms-flex-wrap: nowrap;
   	flex-wrap: nowrap;

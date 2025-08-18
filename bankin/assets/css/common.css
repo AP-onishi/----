@@ -1280,6 +1280,9 @@ caseCss
     width: 515px;
     float: left;
 }
+#case .col .photos img{
+    max-width: 100%;
+}
 #case .col .photos .title{
     background: #2c438b;
     color: #fff;

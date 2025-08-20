@@ -1280,7 +1280,8 @@ caseCss
     width: 515px;
     float: left;
 }
-#case .col .photos img{
+#case .photos img,
+#case .photo img{
     max-width: 100%;
 }
 #case .col .photos .title{
@@ -1355,6 +1356,13 @@ caseCss
 #case .col .text .caption{
     display: block;
     padding-top: 10px;
+}
+#case .pager.flex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em 1em;
+    margin: 20px 0;
 }
 #campaign .read{
     font-size: 16px;
